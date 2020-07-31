@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_001425) do
 
   create_table "costumes", force: :cascade do |t|
     t.string "title"
+    t.string "price"
     t.string "owner_name"
     t.string "owner_email"
     t.string "location"

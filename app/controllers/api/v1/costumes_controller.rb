@@ -24,8 +24,19 @@ class Api::V1::CostumesController < ApplicationController
     end
 
     private
+    #need to add photo
     def costume_params
-        params.require(:costume).permit(:title, :price, :owner_name, :owner_email, :location, :decription, :photos)
+        params.require(:costume).permit(
+            :id, 
+            :title, 
+            :price, 
+            :owner_name, 
+            :owner_email, 
+            :location, 
+            :description, 
+            :photos, 
+            :category_id
+        )
     end
 
 end

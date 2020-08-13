@@ -7,7 +7,7 @@ class CreateCostumes < ActiveRecord::Migration[6.0]
       t.string :owner_email
       t.string :location
       t.text :description
-      t.json :photos
+      t.string :photo
       t.integer :category_id
 
       t.timestamps

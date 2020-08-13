@@ -6,7 +6,11 @@ class Api::V1::CostumesController < ApplicationController
 
     def create
         costume = Costume.new(costume_params)
+        costume.category_id = params['categories'][0]['id']
+        
         if costume.save
+            costume.avatar.attach(params[:avatar])
+            photo = url_for(costume.avatar)
             render json: costume
         else
             render json: {error: "Invalid Costume"}
@@ -24,7 +28,6 @@ class Api::V1::CostumesController < ApplicationController
     end
 
     private
-    #need to add photo
     def costume_params
         params.require(:costume).permit(
             :id, 
@@ -34,7 +37,7 @@ class Api::V1::CostumesController < ApplicationController
             :owner_email, 
             :location, 
             :description, 
-            :photos, 
+            :photo, 
             :category_id
         )
     end

@@ -1,16 +1,22 @@
 class Api::V1::CostumesController < ApplicationController
     def index
-        costumes = Costume.all 
+        if params[:id] 
+            costumes = Costume.find_by(category_id: params[:id])
+        else
+            costumes = Costume.all
+        end
+
         render json: costumes
     end
 
     def create
+       
         costume = Costume.new(costume_params)
-        costume.category_id = params['categories'][0]['id']
-        
+        # costume.category_id = params['categories'][0]['id']
+     
         if costume.save
-            costume.avatar.attach(params[:avatar])
-            photo = url_for(costume.avatar)
+            # costume.avatar.attach(params[:avatar])
+            # photo = url_for(costume.avatar)
             render json: costume
         else
             render json: {error: "Invalid Costume"}
@@ -25,6 +31,8 @@ class Api::V1::CostumesController < ApplicationController
     def destroy
         costume = Costume.find(params[:id])
         costume.destroy
+        costumes = Costume.all 
+        render json: costumes
     end
 
     private
@@ -37,8 +45,8 @@ class Api::V1::CostumesController < ApplicationController
             :owner_email, 
             :location, 
             :description, 
-            :photo, 
-            :category_id
+            :category_id,
+            :photo
         )
     end
 
